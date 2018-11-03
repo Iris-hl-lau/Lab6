@@ -7,6 +7,8 @@
 #include <map>
 #include <iterator>
 #include <string>
+
+//Constants for switch case in menu function
 #define PrintDictionary 1
 #define FindWordDefinition 2
 #define EnterNewWordAndDefinition 3
@@ -14,6 +16,12 @@
 
 using namespace std;
 
+/**
+ * The dictionary class can print words and definitions,
+ * search for the definition of a word,
+ * and add new word and definition.
+ * This is a prototype where instances and functions are declared.
+ */
 class dictionary {
 private:
     string file;

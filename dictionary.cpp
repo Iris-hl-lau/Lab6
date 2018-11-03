@@ -7,6 +7,11 @@
 #include <iostream>
 #include <sstream>
 
+/**
+ * Constuctor of class dictionary.
+ * Acceptes a string for dictionary filename, and
+ * reads file into a STL map.
+ */
 dictionary::dictionary(string filename) {
     file = filename;
     ifstream f_read;
@@ -21,6 +26,11 @@ dictionary::dictionary(string filename) {
     f_read.close();
 }
 
+/**
+ * Prints the menu and takes the user's choice to
+ * perform the corresponding function.
+ * Return type is void.
+ */
 void dictionary::menu(){
     int choice = 0;
     do {
@@ -42,7 +52,7 @@ void dictionary::menu(){
                 new_wordAndDef();
                 break;
             case Exit:
-                cout << "Exit" << endl;
+                cout << "Exit." << endl;
                 break;
             default:
                 cout << "Invalid input.\n" << endl;
@@ -51,17 +61,23 @@ void dictionary::menu(){
     } while(choice != Exit);
 }
 
-
+/**
+ * Prints each word and corresponding definition
+ * in the dictionary STL map.
+ */
 void dictionary::print_dictionary() {
     auto itBegin = wordAndDef.begin();
     auto itEnd = wordAndDef.end();
 
     for (auto it = itBegin; it != itEnd; it++) {
-        cout << "Word: " << it->first << endl;
-        cout << " Definition: " << it->second << "\n" << endl;
+        cout << it->first << " - " << it->second << "\n" << endl;
     }
 }
 
+/**
+ * Prints the definition of inputted word if it
+ * exists in the dictionary STL map.
+ */
 void dictionary::find_wordDef() {
     string word;
     cout << "Enter the word to be defined: " << endl;
@@ -78,6 +94,11 @@ void dictionary::find_wordDef() {
     }
 }
 
+/**
+ * Adds word and definition to dictionary file if word
+ * doesn't already exists. If word exists, the user is prompted
+ * to input a new word.
+ */
 void dictionary::new_wordAndDef(){
     wordAndDef.begin();
     string word, def;
@@ -101,6 +122,9 @@ void dictionary::new_wordAndDef(){
     cout << "New word and definition has been added to the dictionary!" << endl;
 }
 
+/**
+ * Updates the dictionary to the newest version of STL map.
+ */
 void dictionary::update_dictionary() {
     ofstream f_write;
     f_write.open(file);
