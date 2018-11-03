@@ -116,7 +116,7 @@ void dictionary::new_wordAndDef(){
     cout << "Enter the definition: " << endl;
     cin.ignore();
     getline(cin, def);
-
+    word = word + " ";
     wordAndDef.insert(make_pair(word, def));
     update_dictionary();
     cout << "New word and definition has been added to the dictionary!" << endl;
@@ -132,7 +132,7 @@ void dictionary::update_dictionary() {
     auto itEnd = wordAndDef.end();
 
     for (auto it = itBegin; it != itEnd; it++) {
-        f_write << it->first << " " << it->second << "\n";
+        f_write << it->first << it->second << "\n";
     }
     f_write.close();
 }
