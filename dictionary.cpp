@@ -5,6 +5,7 @@
 #include "dictionary.hpp"
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 dictionary::dictionary(string filename) {
     file = filename;
@@ -13,7 +14,8 @@ dictionary::dictionary(string filename) {
     string word;
     string def;
 
-    while(f_read >> word >> def) {
+    while(f_read >> word) {
+        getline(f_read, def);
         wordAndDef.insert(make_pair(word, def));
     }
     f_read.close();
@@ -43,7 +45,7 @@ void dictionary::menu(){
                 cout << "Exit" << endl;
                 break;
             default:
-                cout << "Invalid input./n" << endl;
+                cout << "Invalid input.\n" << endl;
                 break;
         }
     } while(choice != Exit);
@@ -55,7 +57,8 @@ void dictionary::print_dictionary() {
     auto itEnd = wordAndDef.end();
 
     for (auto it = itBegin; it != itEnd; it++) {
-        cout << it->first << " " << it->second << endl;
+        cout << "Word: " << it->first << endl;
+        cout << " Definition: " << it->second << "\n" << endl;
     }
 }
 
@@ -68,7 +71,8 @@ void dictionary::find_wordDef() {
     auto wordDef = wordAndDef.find(word);
 
     if(wordDef != wordAndDef.end()) {
-        cout << "Definition: " << wordDef->second << endl;
+        cout << "Definition: " ;
+        cout << wordDef->second << endl;
     } else {
         cout << "The word " << word << " doesn't exist." << endl;
     }
@@ -85,10 +89,13 @@ void dictionary::new_wordAndDef(){
         cout << "The word " << word << " already exists." << endl;
         cout<< "Enter a new word." << endl;
         cin >> word;
+        wordAndDef.begin();
         wordDef = wordAndDef.find(word);
     }
     cout << "Enter the definition: " << endl;
+    cin.ignore();
     getline(cin, def);
+
     wordAndDef.insert(make_pair(word, def));
     update_dictionary();
     cout << "New word and definition has been added to the dictionary!" << endl;
